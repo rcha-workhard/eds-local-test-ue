@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "https://main--eds-local-test-ue--rcha-workhard.hlx.page"
+    url: "http://localhost:3000"
     type: "markup"
     suffix: ".html"
