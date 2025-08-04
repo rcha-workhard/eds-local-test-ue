@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "https://main--eds-local-test-ue--rcha-workhard.hlx.page/"
+    url: "https://author-p128504-e1572245.adobeaemcloud.com/ui#/aem/sites.html/content/test-EDS-00599133"
     type: "markup"
     suffix: ".html"
