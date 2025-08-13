@@ -188,6 +188,21 @@
           }
         },
         {
+          "title": "Cool",
+          "id": "cool",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Cool",
+                  "model": "cool"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Deposit",
           "id": "deposit",
           "plugins": {
