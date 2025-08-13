@@ -343,5 +343,51 @@
         "description": "文字連結的目標頁面"
       }
     ]
+  },
+  {
+    "id": "deposit",
+    "fields": [
+      {
+        "component": "select",
+        "name": "depositType",
+        "label": "存款類型",
+        "required": true,
+        "options": [
+          {"name": "定期存款", "value": "time-deposit"},
+          {"name": "活期存款", "value": "savings"},
+          {"name": "外幣存款", "value": "foreign-currency"},
+          {"name": "數位存款", "value": "digital-deposit"},
+          {"name": "高利存款", "value": "high-yield"}
+        ],
+        "description": "選擇存款產品類型"
+      },
+      {
+        "component": "text",
+        "name": "depositName",
+        "label": "存款名稱",
+        "valueType": "string",
+        "required": true,
+        "placeholder": "請輸入存款產品名稱",
+        "description": "存款產品的顯示名稱"
+      },
+      {
+        "component": "text",
+        "name": "depositRate",
+        "label": "存款利率",
+        "valueType": "string",
+        "required": true,
+        "placeholder": "例如: 2.5% p.a.",
+        "description": "存款產品的利率資訊"
+      },
+      {
+        "component": "reference",
+        "name": "depositIcon",
+        "label": "存款圖示",
+        "valueType": "string",
+        "multi": false,
+        "mimeTypes": ["image/*"],
+        "description": "選擇代表此存款產品的圖示"
+      }
+    ]
   }
 ]
