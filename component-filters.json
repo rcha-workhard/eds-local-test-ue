@@ -17,7 +17,8 @@
       "columns",
       "fragment",
       "teaser",
-      "camera"
+      "camera",
+      "deposit"
     ]
   },
   {
@@ -39,6 +40,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "deposit",
+    "components": [
+      "card"
     ]
   }
 ]
