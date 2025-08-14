@@ -6,47 +6,12 @@
     ]
   },
   {
-    "id": "section",
-    "components": [
-      "text",
-      "image",
-      "button",
-      "title",
-      "hero",
-      "cards",
-      "columns",
-      "fragment",
-      "teaser",
-      "camera",
-      "cool",
-      "deposit"
-    ]
+    "...": "./_section.json#/filters"
   },
   {
-    "id": "cards",
-    "components": [
-      "card"
-    ]
+    "...": "../blocks/faq/_faq.json#/filters"
   },
   {
-    "id": "columns",
-    "components": [
-      "column"
-    ]
-  },
-  {
-    "id": "column",
-    "components": [
-      "text",
-      "image",
-      "button",
-      "title"
-    ]
-  },
-  {
-    "id": "deposit",
-    "components": [
-      "card"
-    ]
+    "...": "../blocks/*/_*.json#/filters"
   }
 ]
