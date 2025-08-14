@@ -345,139 +345,59 @@
     ]
   },
   {
-    "id": "cool",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "label": "標題",
-        "valueType": "string",
-        "required": true,
-        "placeholder": "請輸入相機標題",
-        "description": "相機區塊的主標題"
-      },
-      {
-        "component": "reference",
-        "name": "image",
-        "label": "相機圖片",
-        "valueType": "string",
-        "multi": false,
-        "mimeTypes": ["image/*"],
-        "description": "選擇要顯示的相機圖片"
-      },
-      {
-        "component": "text",
-        "name": "imageAlt",
-        "label": "圖片替代文字",
-        "valueType": "string",
-        "required": true,
-        "placeholder": "描述圖片內容",
-        "description": "用於無障礙設計的圖片描述"
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "label": "描述內容",
-        "valueType": "string",
-        "required": true,
-        "value": "<p>輸入相機的詳細描述</p>",
-        "description": "支援 HTML 格式的相機描述文字"
-      },
-      {
-        "component": "text",
-        "name": "button1Text",
-        "label": "按鈕1文字",
-        "valueType": "string",
-        "required": true,
-        "value": "了解更多",
-        "placeholder": "按鈕顯示文字",
-        "description": "第一個按鈕顯示的文字"
-      },
-      {
-        "component": "aem-content",
-        "name": "button1Link",
-        "label": "按鈕1連結",
-        "valueType": "string",
-        "description": "第一個按鈕的連結目標"
-      },
-      {
-        "component": "text",
-        "name": "button2Text",
-        "label": "按鈕2文字",
-        "valueType": "string",
-        "required": true,
-        "value": "立即購買",
-        "placeholder": "按鈕顯示文字",
-        "description": "第二個按鈕顯示的文字"
-      },
-      {
-        "component": "aem-content",
-        "name": "button2Link",
-        "label": "按鈕2連結",
-        "valueType": "string",
-        "description": "第二個按鈕的連結目標"
-      },
-      {
-        "component": "text",
-        "name": "linkText",
-        "label": "連結文字",
-        "valueType": "string",
-        "value": "查看詳情",
-        "placeholder": "連結顯示文字",
-        "description": "文字連結顯示的內容"
-      },
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "文字連結",
-        "valueType": "string",
-        "description": "文字連結的目標頁面"
-      }
-    ]
-  },
-  {
-    "id": "deposit",
+    "id": "faq",
     "fields": [
       {
         "component": "select",
-        "name": "depositType",
-        "label": "存款類型",
+        "name": "topSpace",
+        "label": "Top Space",
+        "valueType": "string",
         "required": true,
+        "value": "100px",
         "options": [
-          {"name": "定期存款", "value": "time-deposit"},
-          {"name": "活期存款", "value": "savings"},
-          {"name": "外幣存款", "value": "foreign-currency"},
-          {"name": "數位存款", "value": "digital-deposit"},
-          {"name": "高利存款", "value": "high-yield"}
+          {"name": "50px", "value": "50px"},
+          {"name": "100px (建議)", "value": "100px"},
+          {"name": "150px", "value": "150px"},
+          {"name": "200px", "value": "200px"},
+          {"name": "自訂", "value": "custom"}
         ],
-        "description": "選擇存款產品類型"
+        "description": "上方預留高度 (建議高度為100px)"
       },
       {
         "component": "text",
-        "name": "depositName",
-        "label": "存款名稱",
+        "name": "anchorKey",
+        "label": "Anchor Key",
         "valueType": "string",
-        "required": true,
-        "placeholder": "請輸入存款產品名稱",
-        "description": "存款產品的顯示名稱"
+        "required": false,
+        "placeholder": "例如: faq-section, faq1",
+        "description": "錨點ID(限英文或數字)"
       },
       {
         "component": "text",
-        "name": "depositRate",
-        "label": "存款利率",
+        "name": "mainTitle",
+        "label": "Main Title",
         "valueType": "string",
-        "required": true,
-        "placeholder": "例如: 2.5% p.a.",
-        "description": "存款產品的利率資訊"
+        "required": false,
+        "placeholder": "請輸入主標題",
+        "description": "主標題"
       },
       {
-        "component": "reference",
-        "name": "depositIcon",
-        "label": "存款圖示",
+        "component": "text",
+        "name": "mainSubtitle",
+        "label": "Main Subtitle",
         "valueType": "string",
-        "multi": false,
-        "mimeTypes": ["image/*"],
-        "description": "選擇代表此存款產品的圖示"
+        "required": false,
+        "placeholder": "請輸入副標題",
+        "description": "副標題"
+      },
+      {
+        "component": "aem-content",
+        "name": "dataSource",
+        "label": "Data Source",
+        "valueType": "string",
+        "required": false,
+        "multi": true,
+        "description": "選擇Content Fragment (可新增多個)"
       }
     ]
   }
