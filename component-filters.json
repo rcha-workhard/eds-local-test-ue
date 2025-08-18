@@ -18,7 +18,8 @@
       "fragment",
       "teaser",
       "camera",
-      "faq"
+      "faq",
+      "link-group-simple"
     ]
   },
   {
@@ -40,6 +41,13 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "link-group-simple",
+    "components": [
+      "link-title",
+      "link"
     ]
   }
 ]
