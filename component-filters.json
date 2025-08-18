@@ -46,7 +46,6 @@
   {
     "id": "link-group-simple",
     "components": [
-      "link-title",
       "link"
     ]
   }
