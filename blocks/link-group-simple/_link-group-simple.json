@@ -15,6 +15,21 @@
                 }
             }
         },
+		{
+            "id": "link-title",
+            "title": "Link Title",
+            "plugins": {
+                "xwalk": {
+                    "page": {
+                        "resourceType": "core/franklin/components/block/v1/block/item", 
+                        "template": {
+                            "name": "Link Title",
+                            "model": "link-title" 
+                        }
+                    }
+                }
+            }
+        },
         {
             "id": "link",
             "title": "Link",
@@ -77,15 +92,17 @@
                     "label": "Left Main Title / 主標題 (建議9字以內)​",
                     "valueType": "string",
                     "required": false
-                },
+                }
+            ]
+        },
+        {
+            "id": "link-title",
+            "fields": [
+								"maxItems": 3,
                 {
                     "component": "text",
                     "name": "left-subcategory-title",
-                    "label": "Left Subcategory Title / 子類別標題 (建議8字以內)",
-                    "valueType": "string",
-                    "required": false,
-                    "multi": true,
-                    "maxItems": 3
+                    "label": "Left Subcategory Title / 子類別標題 (建議8字以內)"
                 }
             ]
         },
@@ -117,6 +134,7 @@
         {
             "id": "link-group-simple",
             "components": [
+                "link-title",
                 "link"  
             ]
         }
