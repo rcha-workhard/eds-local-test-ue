@@ -1,0 +1,144 @@
+{
+	"definitions": [ 
+        {
+            "id": "link-group-simple",
+            "title": "Link Group Simple",
+            "plugins": {
+                "xwalk": {
+                    "page": {
+                        "resourceType": "core/franklin/components/block/v1/block", 
+                        "template": {
+                            "name": "Link Group Simple",
+                            "model": "link-group-simple" 
+                        }
+                    }
+                }
+            }
+        },
+		{
+            "id": "link-title",
+            "title": "Link Title",
+            "plugins": {
+                "xwalk": {
+                    "page": {
+                        "resourceType": "core/franklin/components/block/v1/block/item", 
+                        "template": {
+                            "name": "Link Title",
+                            "model": "link-title" 
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "link",
+            "title": "Link",
+            "plugins": {
+                "xwalk": {
+                    "page": {
+                        "resourceType": "core/franklin/components/block/v1/block/item", 
+                        "template": {
+                            "name": "Link",
+                            "model": "link" 
+                        }
+                    }
+                }
+            }
+        }
+	],
+	"models": [
+        {
+            "id": "link-group-simple",
+            "fields": [
+                {
+                    "component": "select",
+                    "name": "top-space",
+                    "label": "Top Space (Default: 40px) / 上方預留高度 (建議告度為 40px)",
+                    "valueType": "string",
+                    "required": true,
+                    "options": [
+                        {"name": "40px (建議)", "value": "40px"},
+                        {"name": "0px", "value": "0px"}
+                    ]
+                },
+                {
+                    "component": "reference",
+                    "name": "left-title-icon",
+                    "label": "Left Title Icon / 左側標題圖示",
+                    "valueType": "string",
+                    "required": false
+                },
+                {
+                    "component": "text",
+                    "name": "left-icon-alt",
+                    "label": "Left Alternative Text / 標題圖示_Alt替代文字",
+                    "valueType": "string",
+                    "required": false
+                },
+                {
+                    "component": "select",
+                    "name": "left-icon-alt-from-dam",
+                    "label": "Left Get alternative text from DAM / 是否要引用Assets替代文字說明",
+                    "valueType": "string",
+                    "required": false,
+                    "options": [
+                        {"name": "是", "value": "true"},
+                        {"name": "否", "value": "false"}
+                    ]
+                },
+                {
+                    "component": "text",
+                    "name": "left-main-title",
+                    "label": "Left Main Title / 主標題 (建議9字以內)​",
+                    "valueType": "string",
+                    "required": false
+                }
+            ]
+        },
+        {
+            "id": "link-title",
+            "fields": [
+                {
+                    "component": "text",
+                    "name": "left-subcategory-title",
+                    "label": "Left Subcategory Title / 子類別標題 (建議8字以內)"
+                }
+            ]
+        },
+        {
+            "id": "link",
+            "fields": [
+                {
+                    "component": "text",
+                    "name": "left-link-text",
+                    "label": "Left Link Text / 連結文字"
+                },
+                {
+                    "component": "aem-content",
+                    "name": "left-link",
+                    "label": "Left Link / 連結",
+                    "valueType": "string",
+                    "required": true
+                },
+                {
+                    "component": "text",
+                    "name": "left-seo-link-title",
+                    "label": "Left SEO Link Title / 連結標題",
+                    "valueType": "string"
+                }
+            ]
+        }
+	],
+	"filters": [
+        {
+            "id": "link-group-simple",
+            "components": [
+                "link-title",
+                "link"  
+            ],
+            "maxItems":{
+                "link-title": 3
+            }
+        }
+	]
+}
