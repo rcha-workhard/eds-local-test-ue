@@ -452,7 +452,6 @@
   {
     "id": "link-title",
     "fields": [
-      "maxItems": 3,
       {
         "component": "text",
         "name": "left-subcategory-title",
