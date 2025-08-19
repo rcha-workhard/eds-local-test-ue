@@ -49,6 +49,11 @@
     "components": [
       "link-title",
       "link"
-    ]
+    ],
+    "constraints": {
+      "link-title": {
+        "max": 3
+      }
+    }
   }
 ]
