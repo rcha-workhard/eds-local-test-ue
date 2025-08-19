@@ -135,7 +135,7 @@
             "components": [
                 {
                     "name": "link-title",
-                    "max": 3
+                    "limit": 3
                 },
                 "link"
             ]
