@@ -47,13 +47,12 @@
   {
     "id": "link-group-simple",
     "components": [
-      "link-title",
+      {
+        "name": "link-title",
+        "maxItems": 3,
+        "minItems": 0
+      },
       "link"
-    ],
-    "constraints": {
-      "link-title": {
-        "max": 3
-      }
-    }
+    ]
   }
 ]
