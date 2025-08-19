@@ -10,12 +10,22 @@ function processLinkGroupStructure(block) {
   // 處理 link-title 子區塊
   const linkTitles = block.querySelectorAll(':scope > div');
   let titleCounter = 0;
+  const maxLinkTitles = 3; // 最大允許的 link-title 數量
   
   linkTitles.forEach(titleBlock => {
     // 檢查是否為 link-title
     const firstCell = titleBlock.querySelector(':scope > div:first-child');
     if (firstCell && firstCell.textContent.trim() === 'link-title') {
       titleCounter++;
+      
+      // 如果超過最大數量，隱藏多餘的 link-title
+      if (titleCounter > maxLinkTitles) {
+        console.warn(`Link-title ${titleCounter} exceeds maximum limit of ${maxLinkTitles}, hiding element`);
+        titleBlock.style.display = 'none';
+        titleBlock.setAttribute('data-hidden', 'true');
+        return;
+      }
+      
       titleBlock.classList.add('link-title-section');
       titleBlock.setAttribute('data-section', 'link-title');
       titleBlock.setAttribute('data-index', titleCounter);
