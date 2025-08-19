@@ -133,7 +133,10 @@
         {
             "id": "link-group-simple",
             "components": [
-                "link-title",
+                {
+                    "name": "link-title",
+                    "max": 3
+                },
                 "link"  
             ]
         }
