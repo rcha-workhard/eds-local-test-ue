@@ -217,13 +217,13 @@
               }
             }
           },
-          "constraints": {
-            "components": {
-              "link-title": {
-                "max": 3
-              }
-            }
-          }
+          "allowedComponents": [
+            {
+              "name": "link-title",
+              "maxItems": 3
+            },
+            "link"
+          ]
         },
         {
           "title": "Link Title",
