@@ -47,7 +47,10 @@
   {
     "id": "link-group-simple",
     "components": [
-      "link-title",
+      {
+        "name": "link-title",
+        "limit": 3
+      },
       "link"
     ]
   }
