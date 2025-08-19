@@ -4,6 +4,40 @@
  * 處理 link-group-simple block 的結構和樣式
  * @param {HTMLElement} block - link-group-simple block 元素
  */
+func/**
+ * 裝飾 link-group-simple block
+ * @param {HTMLElement} block - The block element
+ */
+export default function decorate(block) {
+  console.log('Decorating link-group-simple block:', block);
+  
+  // 檢查 link-title 數量並顯示警告
+  const linkTitleCount = block.querySelectorAll(':scope > div').length;
+  const actualLinkTitles = Array.from(block.querySelectorAll(':scope > div')).filter(div => {
+    const firstCell = div.querySelector(':scope > div:first-child');
+    return firstCell && firstCell.textContent.trim() === 'link-title';
+  });
+  
+  if (actualLinkTitles.length > 3) {
+    console.warn(`⚠️ 警告：此 link-group-simple 包含 ${actualLinkTitles.length} 個 link-title，但建議最多只使用 3 個，多餘的將被隱藏。`);
+  }
+  
+  // 添加 CSS 樣式
+  addStyles();
+  
+  // 處理 block 結構
+  processLinkGroupStructure(block);
+  
+  // 添加主要 CSS 類名
+  block.classList.add('link-group-simple');
+  
+  console.log('Link-group-simple block decoration completed');
+}
+
+/**
+ * 處理 link-group-simple block 的結構和樣式
+ * @param {HTMLElement} block - link-group-simple block 元素
+ */
 function processLinkGroupStructure(block) {
   console.log('Processing link-group-simple structure');
   
