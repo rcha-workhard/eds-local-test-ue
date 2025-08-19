@@ -135,7 +135,13 @@
             "components": [
                 "link-title",
                 "link"
-            ]
+            ],
+            "constraints": {
+                "link-title": {
+                    "maxCount": 3,
+                    "minCount": 0
+                }
+            }
         }
 	]
 }
