@@ -216,6 +216,13 @@
                 }
               }
             }
+          },
+          "constraints": {
+            "components": {
+              "link-title": {
+                "max": 3
+              }
+            }
           }
         },
         {
