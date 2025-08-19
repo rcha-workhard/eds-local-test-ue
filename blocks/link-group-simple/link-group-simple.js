@@ -1,219 +1,149 @@
 /* /blocks/link-group-simple/link-group-simple.js */
 
 /**
- * 限制 link-title 子組件的數量為最多 3 個
+ * 處理 link-group-simple block 的結構和樣式
  * @param {HTMLElement} block - link-group-simple block 元素
  */
-function limitLinkTitleCount(block) {
-  const maxLinkTitles = 3;
-  let warningShown = false;
-
-  // 檢查當前 link-title 數量
-  function checkLinkTitleCount() {
-    const linkTitles = block.querySelectorAll('[data-item="link-title"]');
-    const addButtons = block.querySelectorAll('[data-add-item="link-title"]');
-    
-    console.log(`Current link-title count: ${linkTitles.length}`);
-    
-    if (linkTitles.length >= maxLinkTitles) {
-      // 隱藏或禁用添加按鈕
-      addButtons.forEach(button => {
-        button.style.display = 'none';
-        button.disabled = true;
-        button.setAttribute('title', `最多只能添加 ${maxLinkTitles} 個 Link Title`);
-      });
-      
-      // 隱藏超過限制的 link-title
-      for (let i = maxLinkTitles; i < linkTitles.length; i++) {
-        linkTitles[i].style.display = 'none';
-        linkTitles[i].setAttribute('data-hidden', 'true');
-      }
-      
-      // 顯示警告訊息（只顯示一次）
-      if (!warningShown && linkTitles.length > maxLinkTitles) {
-        showLimitWarning(block, maxLinkTitles);
-        warningShown = true;
-      }
-      
-      // 在最後一個顯示的 link-title 後面加上提示
-      if (linkTitles[maxLinkTitles - 1]) {
-        addLimitIndicator(linkTitles[maxLinkTitles - 1], maxLinkTitles);
-      }
-    } else {
-      // 恢復添加按鈕
-      addButtons.forEach(button => {
-        button.style.display = '';
-        button.disabled = false;
-        button.removeAttribute('title');
-      });
-      
-      // 移除限制提示
-      removeLimitIndicator(block);
-      warningShown = false;
-    }
-  }
-
-  // 顯示警告訊息
-  function showLimitWarning(container, limit) {
-    // 移除舊的警告（如果存在）
-    const existingWarning = container.querySelector('.link-title-limit-warning');
-    if (existingWarning) {
-      existingWarning.remove();
-    }
-
-    // 建立警告元素
-    const warning = document.createElement('div');
-    warning.className = 'link-title-limit-warning';
-    warning.style.cssText = `
-      background: #fff3cd;
-      color: #856404;
-      padding: 0.75rem;
-      margin: 0.5rem 0;
-      border: 1px solid #ffeaa7;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-    `;
-    warning.innerHTML = `
-      <span style="margin-right: 0.5rem;">⚠️</span>
-      Link Title 已達到最大限制 (${limit} 個)，多餘的項目已隱藏。
-    `;
-
-    // 插入到 block 的開頭
-    container.insertBefore(warning, container.firstChild);
-  }
-
-  // 添加限制指示器
-  function addLimitIndicator(lastItem, limit) {
-    // 移除舊的指示器
-    removeLimitIndicator(lastItem.parentNode);
-    
-    const indicator = document.createElement('div');
-    indicator.className = 'link-title-limit-indicator';
-    indicator.style.cssText = `
-      color: #6c757d;
-      font-size: 0.8rem;
-      font-style: italic;
-      padding: 0.25rem 0;
-      border-top: 1px dashed #dee2e6;
-      margin-top: 0.5rem;
-    `;
-    indicator.textContent = `（已達到 Link Title 最大數量限制：${limit} 個）`;
-    
-    // 插入到最後一個 link-title 後面
-    lastItem.parentNode.insertBefore(indicator, lastItem.nextSibling);
-  }
-
-  // 移除限制指示器
-  function removeLimitIndicator(container) {
-    const indicators = container.querySelectorAll('.link-title-limit-indicator');
-    indicators.forEach(indicator => indicator.remove());
-    
-    const warnings = container.querySelectorAll('.link-title-limit-warning');
-    warnings.forEach(warning => warning.remove());
-  }
-
-  // 使用 MutationObserver 監聽 DOM 變化
-  const observer = new MutationObserver((mutations) => {
-    let shouldCheck = false;
-    
-    mutations.forEach((mutation) => {
-      // 檢查是否有新增或移除的節點
-      if (mutation.type === 'childList') {
-        const addedNodes = Array.from(mutation.addedNodes);
-        const removedNodes = Array.from(mutation.removedNodes);
-        
-        // 檢查是否有 link-title 相關的變化
-        const hasLinkTitleChanges = [...addedNodes, ...removedNodes].some(node => 
-          node.nodeType === Node.ELEMENT_NODE && 
-          (node.dataset?.item === 'link-title' || 
-           node.querySelector && node.querySelector('[data-item="link-title"]'))
-        );
-        
-        if (hasLinkTitleChanges) {
-          shouldCheck = true;
-        }
-      }
-      
-      // 檢查屬性變化（比如 data-item 屬性的變化）
-      if (mutation.type === 'attributes' && 
-          mutation.attributeName === 'data-item' &&
-          mutation.target.dataset?.item === 'link-title') {
-        shouldCheck = true;
-      }
-    });
-    
-    if (shouldCheck) {
-      // 使用 setTimeout 避免頻繁檢查
-      clearTimeout(observer.timeout);
-      observer.timeout = setTimeout(checkLinkTitleCount, 100);
-    }
-  });
-
-  // 開始觀察 DOM 變化
-  observer.observe(block, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['data-item']
-  });
-
-  // 初始檢查
-  checkLinkTitleCount();
+function processLinkGroupStructure(block) {
+  console.log('Processing link-group-simple structure');
   
-  // 返回清理函數
-  return () => {
-    observer.disconnect();
-    removeLimitIndicator(block);
-  };
+  // 處理 link-title 子區塊
+  const linkTitles = block.querySelectorAll(':scope > div');
+  let titleCounter = 0;
+  
+  linkTitles.forEach(titleBlock => {
+    // 檢查是否為 link-title
+    const firstCell = titleBlock.querySelector(':scope > div:first-child');
+    if (firstCell && firstCell.textContent.trim() === 'link-title') {
+      titleCounter++;
+      titleBlock.classList.add('link-title-section');
+      titleBlock.setAttribute('data-section', 'link-title');
+      titleBlock.setAttribute('data-index', titleCounter);
+      
+      console.log(`Found link-title section ${titleCounter}`);
+      
+      // 處理該 link-title 下的內容
+      const contentCells = titleBlock.querySelectorAll(':scope > div');
+      contentCells.forEach((cell, index) => {
+        if (index === 0) {
+          // 第一個 cell 是類型標識，隱藏它
+          cell.style.display = 'none';
+        } else if (index === 1) {
+          // 第二個 cell 是子類別標題
+          cell.classList.add('subcategory-title');
+        } else {
+          // 其他 cells 是 link 項目
+          if (cell.querySelector(':scope > div:first-child')?.textContent.trim() === 'link') {
+            cell.classList.add('link-item');
+            
+            // 處理 link 的內部結構
+            const linkCells = cell.querySelectorAll(':scope > div');
+            linkCells.forEach((linkCell, linkIndex) => {
+              if (linkIndex === 0) {
+                linkCell.style.display = 'none'; // 隱藏類型標識
+              } else if (linkIndex === 1) {
+                linkCell.classList.add('link-text');
+              } else if (linkIndex === 2) {
+                linkCell.classList.add('link-url');
+              } else if (linkIndex === 3) {
+                linkCell.classList.add('seo-title');
+              }
+            });
+          }
+        }
+      });
+    }
+  });
+  
+  console.log(`Processed ${titleCounter} link-title sections`);
 }
 
 /**
- * 為 link-group-simple block 添加額外的樣式和功能
- * @param {HTMLElement} block - block 元素
+ * 添加 CSS 樣式
  */
-function enhanceBlock(block) {
-  // 添加基本的 CSS 類名
-  block.classList.add('link-group-simple-enhanced');
-  
-  // 為 link-title 項目添加視覺增強
-  const linkTitles = block.querySelectorAll('[data-item="link-title"]');
-  linkTitles.forEach((item, index) => {
-    item.classList.add('link-title-item');
-    item.setAttribute('data-index', index + 1);
-  });
-  
-  // 添加 CSS 樣式
+function addStyles() {
   if (!document.querySelector('#link-group-simple-styles')) {
     const styles = document.createElement('style');
     styles.id = 'link-group-simple-styles';
     styles.textContent = `
-      .link-group-simple-enhanced [data-item="link-title"] {
-        position: relative;
-        margin-bottom: 1rem;
-        padding: 0.75rem;
+      .link-group-simple {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+      
+      .link-group-simple .link-title-section {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
         border: 1px solid #e9ecef;
-        border-radius: 4px;
+        border-radius: 8px;
         background: #f8f9fa;
       }
       
-      .link-group-simple-enhanced [data-item="link-title"]:before {
+      .link-group-simple .link-title-section:before {
         content: "Link Title " attr(data-index);
+        display: block;
         font-size: 0.75rem;
         color: #6c757d;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
       }
       
-      .link-group-simple-enhanced [data-item="link-title"][data-hidden="true"] {
-        display: none !important;
+      .link-group-simple .subcategory-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #dee2e6;
       }
       
-      .link-group-simple-enhanced [data-add-item="link-title"]:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
+      .link-group-simple .link-item {
+        margin-bottom: 1rem;
+        padding: 0.75rem;
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      
+      .link-group-simple .link-text {
+        flex: 1;
+        font-weight: 500;
+        color: #0066cc;
+      }
+      
+      .link-group-simple .link-url {
+        flex: 2;
+        font-family: monospace;
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+      
+      .link-group-simple .seo-title {
+        flex: 1;
+        font-size: 0.85rem;
+        color: #6c757d;
+        font-style: italic;
+      }
+      
+      /* 響應式設計 */
+      @media (max-width: 768px) {
+        .link-group-simple .link-item {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0.5rem;
+        }
+        
+        .link-group-simple .link-text,
+        .link-group-simple .link-url,
+        .link-group-simple .seo-title {
+          flex: none;
+        }
       }
     `;
     document.head.appendChild(styles);
@@ -227,14 +157,14 @@ function enhanceBlock(block) {
 export default function decorate(block) {
   console.log('Decorating link-group-simple block:', block);
   
-  // 增強 block 外觀
-  enhanceBlock(block);
+  // 添加 CSS 樣式
+  addStyles();
   
-  // 應用 link-title 數量限制
-  const cleanup = limitLinkTitleCount(block);
+  // 處理 block 結構
+  processLinkGroupStructure(block);
   
-  // 將清理函數存儲到 block 元素上，以便後續需要時清理
-  block.linkGroupSimpleCleanup = cleanup;
+  // 添加主要 CSS 類名
+  block.classList.add('link-group-simple');
   
   console.log('Link-group-simple block decoration completed');
 }
