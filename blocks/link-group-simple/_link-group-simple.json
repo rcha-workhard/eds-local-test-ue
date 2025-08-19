@@ -13,7 +13,14 @@
                         }
                     }
                 }
-            }
+            },
+            "allowedComponents": [
+                {
+                    "name": "link-title",
+                    "max": 3
+                },
+                "link"
+            ]
         },
 		{
             "id": "link-title",
@@ -133,15 +140,13 @@
         {
             "id": "link-group-simple",
             "components": [
-                "link-title",
+                {
+                    "name": "link-title",
+                    "maxItems": 3,
+                    "minItems": 0
+                },
                 "link"
-            ],
-            "constraints": {
-                "link-title": {
-                    "maxCount": 3,
-                    "minCount": 0
-                }
-            }
+            ]
         }
 	]
 }
