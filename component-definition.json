@@ -216,14 +216,7 @@
                 }
               }
             }
-          },
-          "allowedComponents": [
-            {
-              "name": "link-title",
-              "maxItems": 3
-            },
-            "link"
-          ]
+          }
         },
         {
           "title": "Link Title",
