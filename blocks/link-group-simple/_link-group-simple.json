@@ -24,8 +24,7 @@
                         "resourceType": "core/franklin/components/block/v1/block/item", 
                         "template": {
                             "name": "Link Title",
-                            "model": "link-title",
-                            "maxItems": 3
+                            "model": "link-title"
                         }
                     }
                 }
@@ -136,6 +135,12 @@
             "components": [
                 "link-title",
                 "link"
+            ],
+            "itemConstraints": [
+                {
+                    "component": "link-title",
+                    "max": 3
+                }
             ]
         }
 	]
