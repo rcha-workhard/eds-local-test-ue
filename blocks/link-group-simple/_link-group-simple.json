@@ -24,7 +24,7 @@
                         "resourceType": "core/franklin/components/block/v1/block/item", 
                         "template": {
                             "name": "Link Title",
-                            "model": "link-title"
+                            "model": "link-title" 
                         }
                     }
                 }
@@ -101,7 +101,13 @@
                 {
                     "component": "text",
                     "name": "left-subcategory-title",
-                    "label": "Left Subcategory Title / 子類別標題 (建議8字以內)"
+                    "label": "Left Subcategory Title / 子類別標題 (建議8字以內)",
+                    "valueType": "string",
+                    "multi": true,
+                    "maxItems": 3,
+                    "filters": {
+                        "include": ["link-title"]
+                    }
                 }
             ]
         },
@@ -135,12 +141,6 @@
             "components": [
                 "link-title",
                 "link"
-            ],
-            "itemConstraints": [
-                {
-                    "component": "link-title",
-                    "max": 3
-                }
             ]
         }
 	]
