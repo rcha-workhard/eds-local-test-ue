@@ -212,7 +212,8 @@
                 "template": {
                   "name": "Link Group Simple",
                   "model": "link-group-simple",
-                  "filter": "link-group-simple"
+                  "filter": "link-group-simple",
+                  "maxItems": 3
                 }
               }
             }
