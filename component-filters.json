@@ -47,10 +47,7 @@
   {
     "id": "link-group-simple",
     "components": [
-      {
-        "name": "link-title",
-        "max": 3
-      }
+      "link-title"
     ]
   },
   {
