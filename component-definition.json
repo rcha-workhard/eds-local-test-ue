@@ -229,7 +229,8 @@
                   "name": "Link Title",
                   "model": "link-title",
                   "filter": "link-title",
-                  "aueBehavior": "component"
+                  "aueBehavior": "component",
+                  "aueType": "container"
                 }
               }
             }
