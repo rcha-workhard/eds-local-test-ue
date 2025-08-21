@@ -227,8 +227,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Link Title",
-                  "model": "link-title",
-                  "filter": "link-title"
+                  "model": "link-title"
                 }
               }
             }
