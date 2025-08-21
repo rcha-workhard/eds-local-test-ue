@@ -139,13 +139,13 @@
         {
             "id": "link-group-simple",
             "components": [
-                "link-title",
-                "link"
+                "link-title"
             ]
         },
         {
             "id": "link-title",
             "components": [
+                "link"
             ]
         }
 	]
