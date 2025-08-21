@@ -1,0 +1,14 @@
+/* link-group-simple 樣式 */
+
+/* 限制最多顯示3個 link-title */
+.link-group-simple .link-title-section:nth-of-type(n+4) {
+  display: none !important;
+}
+
+/* 如果你想要更明確的警告樣式 */
+.link-group-simple .link-title-section:nth-of-type(4)::after {
+  content: "⚠️ 超過3個 link-title 限制";
+  color: red;
+  font-weight: bold;
+  display: block;
+}
