@@ -462,7 +462,7 @@
     ]
   },
   {
-    "id": "link",
+    "id": "link-item",
     "fields": [
       {
         "component": "text",
