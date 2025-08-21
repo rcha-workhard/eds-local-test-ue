@@ -47,13 +47,13 @@
   {
     "id": "link-group-simple",
     "components": [
-      "link-title"
+      "link-title",
+      "link"
     ]
   },
   {
     "id": "link-title",
     "components": [
-      "link"
     ]
   }
 ]
