@@ -10,7 +10,8 @@
                         "template": {
                             "name": "Link Group Simple",
                             "model": "link-group-simple",
-                            "filter": "link-group-simple"
+                            "filter": "link-group-simple",
+                            "maxItems": 3
                         }
                     }
                 }
@@ -173,7 +174,7 @@
             "components": [
                 "link-title"
             ],
-            "maxItems": 3
+            "maxOccurs": 3
         },
         {
             "id": "link-title",
