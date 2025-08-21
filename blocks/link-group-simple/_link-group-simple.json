@@ -97,6 +97,51 @@
                     "label": "Left Main Title / 主標題 (建議9字以內)​",
                     "valueType": "string",
                     "required": false
+                },
+                {
+                    "component": "tabs",
+                    "name": "linkGroups",
+                    "label": "Link Groups / 連結群組",
+                    "multi": true,
+                    "fields": [
+                        {
+                            "component": "text",
+                            "name": "tabTitle",
+                            "label": "Tab Title / 分頁標題",
+                            "valueType": "string",
+                            "required": true,
+                            "placeholder": "例如：main"
+                        },
+                        {
+                            "component": "container",
+                            "name": "links",
+                            "label": "Links / 連結列表",
+                            "multi": true,
+                            "fields": [
+                                {
+                                    "component": "text",
+                                    "name": "linkText",
+                                    "label": "Link Text / 連結文字",
+                                    "valueType": "string",
+                                    "required": false
+                                },
+                                {
+                                    "component": "aem-content",
+                                    "name": "linkUrl",
+                                    "label": "Link URL / 連結網址",
+                                    "valueType": "string",
+                                    "required": true
+                                },
+                                {
+                                    "component": "text",
+                                    "name": "linkTitle",
+                                    "label": "SEO Link Title / 連結標題",
+                                    "valueType": "string",
+                                    "required": false
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         },
@@ -168,19 +213,5 @@
             ]
         }
 	],
-	"filters": [
-        {
-            "id": "link-group-simple",
-            "components": [
-                "link-title"
-            ],
-            "maxOccurs": 3
-        },
-        {
-            "id": "link-title",
-            "components": [
-                "link-item"
-            ]
-        }
-	]
+	"filters": []
 }
