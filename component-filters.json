@@ -49,6 +49,6 @@
     "components": [
       "link-title"
     ],
-    "maxItems": 3
+    "maxOccurs": 3
   }
 ]
