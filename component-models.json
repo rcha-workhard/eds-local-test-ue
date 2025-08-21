@@ -458,6 +458,35 @@
         "label": "Left Subcategory Title / 子類別標題 (建議8字以內)",
         "valueType": "string",
         "required": false
+      },
+      {
+        "component": "container",
+        "name": "links",
+        "label": "Links / 連結列表",
+        "multi": true,
+        "fields": [
+          {
+            "component": "text",
+            "name": "linkText",
+            "label": "Link Text / 連結文字",
+            "valueType": "string",
+            "required": false
+          },
+          {
+            "component": "aem-content",
+            "name": "linkUrl",
+            "label": "Link URL / 連結網址",
+            "valueType": "string",
+            "required": true
+          },
+          {
+            "component": "text",
+            "name": "linkTitle",
+            "label": "SEO Link Title / 連結標題",
+            "valueType": "string",
+            "required": false
+          }
+        ]
       }
     ]
   },
