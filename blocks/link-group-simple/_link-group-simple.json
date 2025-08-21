@@ -172,7 +172,8 @@
             "id": "link-group-simple",
             "components": [
                 "link-title"
-            ]
+            ],
+            "maxItems": 3
         },
         {
             "id": "link-title",
