@@ -53,7 +53,7 @@
   {
     "id": "link-title",
     "components": [
-      "link"
+      "link-item"
     ]
   }
 ]
