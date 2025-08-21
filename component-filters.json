@@ -48,6 +48,7 @@
     "id": "link-group-simple",
     "components": [
       "link-title"
-    ]
+    ],
+    "maxItems": 3
   }
 ]
