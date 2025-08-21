@@ -27,22 +27,23 @@
                             "name": "Link Title",
                             "model": "link-title",
                             "filter": "link-title",
-                            "aueBehavior": "component"
+                            "aueBehavior": "component",
+                            "aueType": "container"
                         }
                     }
                 }
             }
         },
         {
-            "id": "link",
-            "title": "Link",
+            "id": "link-item",
+            "title": "Link Item",
             "plugins": {
                 "xwalk": {
                     "page": {
                         "resourceType": "core/franklin/components/block/v1/block/item", 
                         "template": {
-                            "name": "Link",
-                            "model": "link" 
+                            "name": "Link Item",
+                            "model": "link-item" 
                         }
                     }
                 }
@@ -111,7 +112,7 @@
             ]
         },
         {
-            "id": "link",
+            "id": "link-item",
             "fields": [
                 {
                     "component": "text",
@@ -147,7 +148,7 @@
         {
             "id": "link-title",
             "components": [
-                "link"
+                "link-item"
             ]
         }
 	]
