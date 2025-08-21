@@ -228,22 +228,24 @@
                 "template": {
                   "name": "Link Title",
                   "model": "link-title",
-                  "filter": "link-title"
+                  "filter": "link-title",
+                  "aueBehavior": "component"
                 }
               }
             }
           }
         },
         {
-          "title": "Link",
-          "id": "link",
+          "title": "Link Item",
+          "id": "link-item",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Link",
-                  "model": "link"
+                  "name": "Link Item",
+                  "model": "link-item",
+                  "filter": ""
                 }
               }
             }
