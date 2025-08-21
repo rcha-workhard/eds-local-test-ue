@@ -457,11 +457,7 @@
         "name": "left-subcategory-title",
         "label": "Left Subcategory Title / 子類別標題 (建議8字以內)",
         "valueType": "string",
-        "multi": true,
-        "maxItems": 3,
-        "filters": {
-          "include": ["link-title"]
-        }
+        "required": false
       }
     ]
   },
@@ -471,7 +467,9 @@
       {
         "component": "text",
         "name": "left-link-text",
-        "label": "Left Link Text / 連結文字"
+        "label": "Left Link Text / 連結文字",
+        "valueType": "string",
+        "required": false
       },
       {
         "component": "aem-content",
@@ -484,7 +482,8 @@
         "component": "text",
         "name": "left-seo-link-title",
         "label": "Left SEO Link Title / 連結標題",
-        "valueType": "string"
+        "valueType": "string",
+        "required": false
       }
     ]
   },
