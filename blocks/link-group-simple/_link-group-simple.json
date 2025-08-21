@@ -101,13 +101,7 @@
                 {
                     "component": "text",
                     "name": "left-subcategory-title",
-                    "label": "Left Subcategory Title / 子類別標題 (建議8字以內)",
-                    "valueType": "string",
-                    "multi": true,
-                    "maxItems": 3,
-                    "filters": {
-                        "include": ["link-title"]
-                    }
+                    "label": "Left Subcategory Title / 子類別標題 (建議8字以內)"
                 }
             ]
         },
@@ -139,7 +133,15 @@
         {
             "id": "link-group-simple",
             "components": [
-                "link-title",
+                {
+                    "name": "link-title",
+                    "max": 3
+                }
+            ]
+        },
+        {
+            "id": "link-title",
+            "components": [
                 "link"
             ]
         }
