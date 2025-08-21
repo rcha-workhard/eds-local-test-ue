@@ -49,11 +49,5 @@
     "components": [
       "link-title"
     ]
-  },
-  {
-    "id": "link-title",
-    "components": [
-      "link-item"
-    ]
   }
 ]
