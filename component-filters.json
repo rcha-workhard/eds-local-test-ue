@@ -43,12 +43,5 @@
       "button",
       "title"
     ]
-  },
-  {
-    "id": "link-group-simple",
-    "components": [
-      "link-title"
-    ],
-    "maxOccurs": 3
   }
 ]
