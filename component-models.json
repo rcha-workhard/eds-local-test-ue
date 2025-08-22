@@ -405,97 +405,78 @@
     "id": "link-group-simple",
     "fields": [
       {
-        "component": "select",
-        "name": "top-space",
-        "label": "Top Space (Default: 40px) / 上方預留高度 (建議告度為 40px)",
+        "component": "text",
+        "name": "title",
+        "label": "標題",
         "valueType": "string",
         "required": true,
-        "options": [
-          {"name": "40px (建議)", "value": "40px"},
-          {"name": "0px", "value": "0px"}
-        ]
+        "maxLength": 10,
+        "description": "標題最多可輸入10個字元"
+      },
+      {
+        "component": "text",
+        "name": "subtitle",
+        "label": "副標題",
+        "valueType": "string",
+        "required": false,
+        "maxLength": 10,
+        "description": "副標題最多可輸入10個字元"
       },
       {
         "component": "reference",
-        "name": "left-title-icon",
-        "label": "Left Title Icon / 左側標題圖示",
-        "valueType": "string",
-        "required": false
-      },
-      {
-        "component": "text",
-        "name": "left-icon-alt",
-        "label": "Left Alternative Text / 標題圖示_Alt替代文字",
-        "valueType": "string",
-        "required": false
-      },
-      {
-        "component": "select",
-        "name": "left-icon-alt-from-dam",
-        "label": "Left Get alternative text from DAM / 是否要引用Assets替代文字說明",
+        "name": "image",
+        "label": "圖片",
         "valueType": "string",
         "required": false,
-        "options": [
-          {"name": "是", "value": "true"},
-          {"name": "否", "value": "false"}
-        ]
-      },
-      {
-        "component": "text",
-        "name": "left-main-title",
-        "label": "Left Main Title / 主標題 (建議9字以內)​",
-        "valueType": "string",
-        "required": false,
-        "maxLength": 9,
-        "description": "主標題最多可輸入9個字元"
+        "multi": false
       },
       {
         "component": "container",
         "name": "linkTitles",
-        "label": "Link Title Groups / 連結標題群組",
+        "label": "連結標題群組",
         "multi": true,
         "value": [],
         "fields": [
           {
             "component": "text",
-            "name": "subcategoryTitle",
-            "label": "Subcategory Title / 子類別標題 (建議8字以內)",
+            "name": "categoryTitle",
+            "label": "分類標題",
             "valueType": "string",
             "required": true,
-            "maxLength": 8,
-            "description": "子類別標題最多可輸入8個字元"
+            "maxLength": 15,
+            "description": "分類標題最多可輸入15個字元"
           },
           {
             "component": "container",
             "name": "links",
-            "label": "Links / 連結列表",
+            "label": "連結列表",
             "multi": true,
             "value": [],
             "fields": [
               {
                 "component": "text",
-                "name": "linkText",
-                "label": "Link Text / 連結文字",
+                "name": "title",
+                "label": "連結標題",
                 "valueType": "string",
-                "required": false,
+                "required": true,
                 "maxLength": 20,
-                "description": "連結文字最多可輸入20個字元"
+                "description": "連結標題最多可輸入20個字元"
               },
               {
                 "component": "aem-content",
-                "name": "linkUrl",
-                "label": "Link URL / 連結網址",
+                "name": "url",
+                "label": "連結網址",
                 "valueType": "string",
                 "required": true
               },
               {
                 "component": "text",
-                "name": "linkTitle",
-                "label": "SEO Link Title / 連結標題",
+                "name": "description",
+                "label": "連結說明",
                 "valueType": "string",
                 "required": false,
                 "maxLength": 50,
-                "description": "SEO標題最多可輸入50個字元"
+                "description": "連結說明最多可輸入50個字元"
               }
             ]
           }
@@ -508,37 +489,44 @@
     "fields": [
       {
         "component": "text",
-        "name": "left-subcategory-title",
-        "label": "Left Subcategory Title / 子類別標題 (建議8字以內)",
+        "name": "categoryTitle",
+        "label": "分類標題",
         "valueType": "string",
-        "required": false
+        "required": true,
+        "maxLength": 15,
+        "description": "分類標題最多可輸入15個字元"
       },
       {
         "component": "container",
         "name": "links",
-        "label": "Links / 連結列表",
+        "label": "連結列表",
         "multi": true,
+        "value": [],
         "fields": [
           {
             "component": "text",
-            "name": "linkText",
-            "label": "Link Text / 連結文字",
+            "name": "title",
+            "label": "連結標題",
             "valueType": "string",
-            "required": false
+            "required": true,
+            "maxLength": 20,
+            "description": "連結標題最多可輸入20個字元"
           },
           {
             "component": "aem-content",
-            "name": "linkUrl",
-            "label": "Link URL / 連結網址",
+            "name": "url",
+            "label": "連結網址",
             "valueType": "string",
             "required": true
           },
           {
             "component": "text",
-            "name": "linkTitle",
-            "label": "SEO Link Title / 連結標題",
+            "name": "description",
+            "label": "連結說明",
             "valueType": "string",
-            "required": false
+            "required": false,
+            "maxLength": 50,
+            "description": "連結說明最多可輸入50個字元"
           }
         ]
       }
