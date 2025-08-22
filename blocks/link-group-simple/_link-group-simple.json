@@ -101,14 +101,24 @@
                     "description": "主標題最多可輸入9個字元"
                 },
                 {
-                    "component": "fieldset",
-                    "name": "mainGroup",
-                    "label": "Main / 主要連結群組",
+                    "component": "container",
+                    "name": "linkTitles",
+                    "label": "Link Title Groups / 連結標題群組",
+                    "multi": true,
                     "fields": [
                         {
+                            "component": "text",
+                            "name": "subcategoryTitle",
+                            "label": "Subcategory Title / 子類別標題 (建議8字以內)",
+                            "valueType": "string",
+                            "required": true,
+                            "maxLength": 8,
+                            "description": "子類別標題最多可輸入8個字元"
+                        },
+                        {
                             "component": "container",
-                            "name": "mainLinks",
-                            "label": "Main Links / 主要連結",
+                            "name": "links",
+                            "label": "Links / 連結列表",
                             "multi": true,
                             "fields": [
                                 {
@@ -116,7 +126,9 @@
                                     "name": "linkText",
                                     "label": "Link Text / 連結文字",
                                     "valueType": "string",
-                                    "required": false
+                                    "required": false,
+                                    "maxLength": 20,
+                                    "description": "連結文字最多可輸入20個字元"
                                 },
                                 {
                                     "component": "aem-content",
@@ -130,43 +142,9 @@
                                     "name": "linkTitle",
                                     "label": "SEO Link Title / 連結標題",
                                     "valueType": "string",
-                                    "required": false
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "component": "fieldset",
-                    "name": "copyGroup",
-                    "label": "Copy / 次要連結群組", 
-                    "fields": [
-                        {
-                            "component": "container",
-                            "name": "copyLinks",
-                            "label": "Copy Links / 次要連結",
-                            "multi": true,
-                            "fields": [
-                                {
-                                    "component": "text",
-                                    "name": "linkText",
-                                    "label": "Link Text / 連結文字",
-                                    "valueType": "string",
-                                    "required": false
-                                },
-                                {
-                                    "component": "aem-content",
-                                    "name": "linkUrl",
-                                    "label": "Link URL / 連結網址",
-                                    "valueType": "string",
-                                    "required": true
-                                },
-                                {
-                                    "component": "text",
-                                    "name": "linkTitle",
-                                    "label": "SEO Link Title / 連結標題",
-                                    "valueType": "string",
-                                    "required": false
+                                    "required": false,
+                                    "maxLength": 50,
+                                    "description": "SEO標題最多可輸入50個字元"
                                 }
                             ]
                         }
