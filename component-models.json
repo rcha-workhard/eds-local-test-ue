@@ -448,34 +448,53 @@
         "required": false
       },
       {
-        "component": "tabs",
-        "name": "linkGroups",
-        "label": "Link Groups / 連結群組",
-        "multi": true,
-        "value": [
-          {
-            "tabTitle": "main",
-            "links": []
-          },
-          {
-            "tabTitle": "copy", 
-            "links": []
-          }
-        ],
+        "component": "fieldset",
+        "name": "mainGroup",
+        "label": "Main / 主要連結群組",
         "fields": [
           {
-            "component": "text",
-            "name": "tabTitle",
-            "label": "Tab Title / 分頁標題",
-            "valueType": "string",
-            "required": true,
-            "placeholder": "例如：main"
-          },
+            "component": "container",
+            "name": "mainLinks",
+            "label": "Main Links / 主要連結",
+            "multi": true,
+            "value": [],
+            "fields": [
+              {
+                "component": "text",
+                "name": "linkText",
+                "label": "Link Text / 連結文字",
+                "valueType": "string",
+                "required": false
+              },
+              {
+                "component": "aem-content",
+                "name": "linkUrl",
+                "label": "Link URL / 連結網址",
+                "valueType": "string",
+                "required": true
+              },
+              {
+                "component": "text",
+                "name": "linkTitle",
+                "label": "SEO Link Title / 連結標題",
+                "valueType": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "fieldset",
+        "name": "copyGroup", 
+        "label": "Copy / 次要連結群組",
+        "fields": [
           {
             "component": "container",
-            "name": "links",
-            "label": "Links / 連結列表",
+            "name": "copyLinks",
+            "label": "Copy Links / 次要連結",
             "multi": true,
+            "value": [],
             "fields": [
               {
                 "component": "text",
