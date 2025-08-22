@@ -445,7 +445,9 @@
         "name": "left-main-title",
         "label": "Left Main Title / 主標題 (建議9字以內)​",
         "valueType": "string",
-        "required": false
+        "required": false,
+        "maxLength": 9,
+        "description": "主標題最多可輸入9個字元"
       },
       {
         "component": "fieldset",
@@ -464,7 +466,9 @@
                 "name": "linkText",
                 "label": "Link Text / 連結文字",
                 "valueType": "string",
-                "required": false
+                "required": false,
+                "maxLength": 20,
+                "description": "連結文字最多可輸入20個字元"
               },
               {
                 "component": "aem-content",
@@ -478,7 +482,9 @@
                 "name": "linkTitle",
                 "label": "SEO Link Title / 連結標題",
                 "valueType": "string",
-                "required": false
+                "required": false,
+                "maxLength": 50,
+                "description": "SEO標題最多可輸入50個字元"
               }
             ]
           }
@@ -501,7 +507,9 @@
                 "name": "linkText",
                 "label": "Link Text / 連結文字",
                 "valueType": "string",
-                "required": false
+                "required": false,
+                "maxLength": 20,
+                "description": "連結文字最多可輸入20個字元"
               },
               {
                 "component": "aem-content",
@@ -515,7 +523,9 @@
                 "name": "linkTitle",
                 "label": "SEO Link Title / 連結標題",
                 "valueType": "string",
-                "required": false
+                "required": false,
+                "maxLength": 50,
+                "description": "SEO標題最多可輸入50個字元"
               }
             ]
           }
