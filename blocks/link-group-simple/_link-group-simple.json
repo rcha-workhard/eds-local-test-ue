@@ -96,7 +96,9 @@
                     "name": "left-main-title",
                     "label": "Left Main Title / 主標題 (建議9字以內)​",
                     "valueType": "string",
-                    "required": false
+                    "required": false,
+                    "maxLength": 9,
+                    "description": "主標題最多可輸入9個字元"
                 },
                 {
                     "component": "fieldset",
