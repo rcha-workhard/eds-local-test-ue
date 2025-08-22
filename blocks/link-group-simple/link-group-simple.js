@@ -1,68 +1,175 @@
 /* /blocks/link-group-simple/link-group-simple.js */
 
 /**
- * 處理 link-group-simple block 的結構和樣式
+ * 解析EDS表格結構為分組數據
  * @param {HTMLElement} block - link-group-simple block 元素
+ * @returns {Object} 解析後的數據
  */
-function processLinkGroupStructure(block) {
-  console.log('Processing link-group-simple structure');
+function parseBlockData(block) {
+  const data = {
+    title: '',
+    mainLinks: [],
+    copyLinks: []
+  };
   
-  // 處理 link-title 子區塊
-  const linkTitles = block.querySelectorAll(':scope > div');
-  let titleCounter = 0;
+  const rows = Array.from(block.children);
   
-  linkTitles.forEach(titleBlock => {
-    // 檢查是否為 link-title
-    const firstCell = titleBlock.querySelector(':scope > div:first-child');
-    if (firstCell && firstCell.textContent.trim() === 'link-title') {
-      titleCounter++;
-      titleBlock.classList.add('link-title-section');
-      titleBlock.setAttribute('data-section', 'link-title');
+  rows.forEach(row => {
+    const cells = Array.from(row.children);
+    if (cells.length >= 2) {
+      const key = cells[0].textContent.trim();
+      const value = cells[1].textContent.trim();
       
-      // 限制最多3個 link-title，隱藏超過的部分
-      if (titleCounter > 3) {
-        titleBlock.style.display = 'none';
-        console.warn(`Link-title #${titleCounter} 已被隱藏 (超過3個限制)`);
-        return;
+      // 處理主標題
+      if (key === 'left-main-title') {
+        data.title = value;
       }
-      titleBlock.setAttribute('data-index', titleCounter);
-      
-      console.log(`Found link-title section ${titleCounter}`);
-      
-      // 處理該 link-title 下的內容
-      const contentCells = titleBlock.querySelectorAll(':scope > div');
-      contentCells.forEach((cell, index) => {
-        if (index === 0) {
-          // 第一個 cell 是類型標識，隱藏它
-          cell.style.display = 'none';
-        } else if (index === 1) {
-          // 第二個 cell 是子類別標題
-          cell.classList.add('subcategory-title');
-        } else {
-          // 其他 cells 是 link 項目
-          if (cell.querySelector(':scope > div:first-child')?.textContent.trim() === 'link') {
-            cell.classList.add('link-item');
-            
-            // 處理 link 的內部結構
-            const linkCells = cell.querySelectorAll(':scope > div');
-            linkCells.forEach((linkCell, linkIndex) => {
-              if (linkIndex === 0) {
-                linkCell.style.display = 'none'; // 隱藏類型標識
-              } else if (linkIndex === 1) {
-                linkCell.classList.add('link-text');
-              } else if (linkIndex === 2) {
-                linkCell.classList.add('link-url');
-              } else if (linkIndex === 3) {
-                linkCell.classList.add('seo-title');
-              }
-            });
+      // 處理主要連結群組
+      else if (key.startsWith('mainGroup-mainLinks-')) {
+        const parts = key.split('-');
+        if (parts.length >= 4) {
+          const linkIndex = parseInt(parts[2]);
+          const field = parts[3];
+          
+          // 確保連結存在
+          if (!data.mainLinks[linkIndex]) {
+            data.mainLinks[linkIndex] = {
+              text: '',
+              url: '',
+              title: ''
+            };
+          }
+          
+          if (field === 'linkText') {
+            data.mainLinks[linkIndex].text = value;
+          } else if (field === 'linkUrl') {
+            data.mainLinks[linkIndex].url = value;
+          } else if (field === 'linkTitle') {
+            data.mainLinks[linkIndex].title = value;
           }
         }
-      });
+      }
+      // 處理次要連結群組
+      else if (key.startsWith('copyGroup-copyLinks-')) {
+        const parts = key.split('-');
+        if (parts.length >= 4) {
+          const linkIndex = parseInt(parts[2]);
+          const field = parts[3];
+          
+          // 確保連結存在
+          if (!data.copyLinks[linkIndex]) {
+            data.copyLinks[linkIndex] = {
+              text: '',
+              url: '',
+              title: ''
+            };
+          }
+          
+          if (field === 'linkText') {
+            data.copyLinks[linkIndex].text = value;
+          } else if (field === 'linkUrl') {
+            data.copyLinks[linkIndex].url = value;
+          } else if (field === 'linkTitle') {
+            data.copyLinks[linkIndex].title = value;
+          }
+        }
+      }
     }
   });
   
-  console.log(`Processed ${titleCounter} link-title sections`);
+  // 清理空白的連結
+  data.mainLinks = data.mainLinks.filter(link => link && (link.text || link.url));
+  data.copyLinks = data.copyLinks.filter(link => link && (link.text || link.url));
+  
+  console.log('Parsed block data:', data);
+  return data;
+}
+
+/**
+ * 創建分頁導航
+ * @param {Object} data - 解析後的數據
+ * @returns {HTMLElement} 分頁導航元素
+ */
+function createTabNavigation(data) {
+  const nav = document.createElement('div');
+  nav.className = 'tab-navigation';
+  
+  // Main tab
+  const mainButton = document.createElement('button');
+  mainButton.className = 'tab-button active';
+  mainButton.textContent = 'Main';
+  mainButton.dataset.tabIndex = '0';
+  
+  // Copy tab
+  const copyButton = document.createElement('button');
+  copyButton.className = 'tab-button';
+  copyButton.textContent = 'Copy';
+  copyButton.dataset.tabIndex = '1';
+  
+  [mainButton, copyButton].forEach(button => {
+    button.addEventListener('click', (e) => {
+      // 移除其他按鈕的active類
+      nav.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      // 添加active類到點擊的按鈕
+      e.target.classList.add('active');
+      
+      // 顯示對應的分頁內容
+      const container = nav.parentElement;
+      const tabContents = container.querySelectorAll('.tab-content');
+      const targetIndex = parseInt(e.target.dataset.tabIndex);
+      tabContents.forEach((content, idx) => {
+        content.style.display = idx === targetIndex ? 'block' : 'none';
+      });
+    });
+    
+    nav.appendChild(button);
+  });
+  
+  return nav;
+}
+
+/**
+ * 創建連結列表
+ * @param {Array} links - 連結數據
+ * @param {string} groupName - 群組名稱
+ * @returns {HTMLElement} 連結列表元素
+ */
+function createLinksContainer(links, groupName) {
+  const container = document.createElement('div');
+  container.className = 'links-container';
+  
+  if (links && links.length > 0) {
+    links.forEach(link => {
+      if (link.text || link.url) {
+        const linkElement = document.createElement('div');
+        linkElement.className = 'link-item';
+        
+        const linkText = document.createElement('div');
+        linkText.className = 'link-text';
+        linkText.textContent = link.text || '未設定文字';
+        
+        const linkUrl = document.createElement('div');
+        linkUrl.className = 'link-url';
+        linkUrl.textContent = link.url || '未設定網址';
+        
+        linkElement.appendChild(linkText);
+        linkElement.appendChild(linkUrl);
+        
+        if (link.title) {
+          const linkTitle = document.createElement('div');
+          linkTitle.className = 'link-title';
+          linkTitle.textContent = link.title;
+          linkElement.appendChild(linkTitle);
+        }
+        
+        container.appendChild(linkElement);
+      }
+    });
+  } else {
+    container.innerHTML = `<p class="no-links">此${groupName}群組暫無連結</p>`;
+  }
+  
+  return container;
 }
 
 /**
@@ -79,78 +186,130 @@ function addStyles() {
         padding: 2rem 1rem;
       }
       
-      .link-group-simple .link-title-section {
+      .link-group-simple .main-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #212529;
         margin-bottom: 2rem;
-        padding: 1.5rem;
-        border: 1px solid #e9ecef;
-        border-radius: 8px;
-        background: #f8f9fa;
+        text-align: center;
       }
       
-      .link-group-simple .link-title-section:before {
-        content: "Link Title " attr(data-index);
-        display: block;
-        font-size: 0.75rem;
-        color: #6c757d;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 0.5rem;
-      }
-      
-      .link-group-simple .subcategory-title {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: #495057;
-        margin-bottom: 1rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #dee2e6;
-      }
-      
-      .link-group-simple .link-item {
-        margin-bottom: 1rem;
-        padding: 0.75rem;
-        background: white;
-        border: 1px solid #dee2e6;
-        border-radius: 4px;
+      /* 分頁導航樣式 */
+      .link-group-simple .tab-navigation {
         display: flex;
-        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #dee2e6;
+        justify-content: center;
+      }
+      
+      .link-group-simple .tab-button {
+        padding: 0.75rem 2rem;
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        color: #495057;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        font-size: 1rem;
+        min-width: 120px;
+      }
+      
+      .link-group-simple .tab-button:hover {
+        background: #e9ecef;
+        border-color: #adb5bd;
+        transform: translateY(-1px);
+      }
+      
+      .link-group-simple .tab-button.active {
+        background: #0066cc;
+        border-color: #0056b3;
+        color: white;
+        box-shadow: 0 2px 4px rgba(0, 102, 204, 0.2);
+      }
+      
+      /* 分頁內容樣式 */
+      .link-group-simple .tab-content {
+        min-height: 200px;
+      }
+      
+      .link-group-simple .links-container {
+        display: grid;
         gap: 1rem;
       }
       
+      .link-group-simple .link-item {
+        padding: 1rem;
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        display: grid;
+        grid-template-columns: 2fr 3fr 1.5fr;
+        gap: 1rem;
+        align-items: center;
+        transition: all 0.2s ease;
+      }
+      
+      .link-group-simple .link-item:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-color: #0066cc;
+      }
+      
       .link-group-simple .link-text {
-        flex: 1;
-        font-weight: 500;
+        font-weight: 600;
         color: #0066cc;
+        font-size: 1rem;
       }
       
       .link-group-simple .link-url {
-        flex: 2;
-        font-family: monospace;
+        font-family: 'Courier New', monospace;
         font-size: 0.9rem;
         color: #6c757d;
+        word-break: break-all;
       }
       
-      .link-group-simple .seo-title {
-        flex: 1;
+      .link-group-simple .link-title {
         font-size: 0.85rem;
         color: #6c757d;
         font-style: italic;
       }
       
+      .link-group-simple .no-links {
+        text-align: center;
+        color: #6c757d;
+        font-style: italic;
+        padding: 2rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+        margin: 1rem 0;
+      }
+      
       /* 響應式設計 */
       @media (max-width: 768px) {
-        .link-group-simple .link-item {
+        .link-group-simple .tab-navigation {
           flex-direction: column;
-          align-items: stretch;
-          gap: 0.5rem;
+          align-items: center;
         }
         
-        .link-group-simple .link-text,
-        .link-group-simple .link-url,
-        .link-group-simple .seo-title {
-          flex: none;
+        .link-group-simple .tab-button {
+          padding: 0.6rem 1.5rem;
+          font-size: 0.95rem;
+          min-width: 200px;
         }
+        
+        .link-group-simple .link-item {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+          padding: 0.75rem;
+        }
+      }
+      
+      /* 隱藏原始表格樣式 */
+      .link-group-simple.processed > div {
+        display: none !important;
       }
     `;
     document.head.appendChild(styles);
@@ -167,11 +326,50 @@ export default function decorate(block) {
   // 添加 CSS 樣式
   addStyles();
   
-  // 處理 block 結構
-  processLinkGroupStructure(block);
+  // 解析 block 數據
+  const data = parseBlockData(block);
   
-  // 添加主要 CSS 類名
-  block.classList.add('link-group-simple');
+  // 如果沒有任何連結數據，顯示預設內容
+  if (data.mainLinks.length === 0 && data.copyLinks.length === 0) {
+    block.innerHTML = '<p class="no-links">請在Universal Editor中添加Main或Copy群組的連結</p>';
+    return;
+  }
   
-  console.log('Link-group-simple block decoration completed');
+  // 清空原始內容並標記為已處理
+  const originalContent = block.innerHTML;
+  block.innerHTML = '';
+  block.classList.add('link-group-simple', 'processed');
+  
+  // 添加主標題
+  if (data.title) {
+    const titleElement = document.createElement('h2');
+    titleElement.className = 'main-title';
+    titleElement.textContent = data.title;
+    block.appendChild(titleElement);
+  }
+  
+  // 創建分頁導航（如果兩個群組都有連結或者至少一個有連結時顯示）
+  const hasMainLinks = data.mainLinks.length > 0;
+  const hasCopyLinks = data.copyLinks.length > 0;
+  
+  if (hasMainLinks || hasCopyLinks) {
+    const navigation = createTabNavigation(data);
+    block.appendChild(navigation);
+    
+    // 創建Main分頁內容
+    const mainContent = document.createElement('div');
+    mainContent.className = 'tab-content';
+    mainContent.style.display = 'block';
+    mainContent.appendChild(createLinksContainer(data.mainLinks, 'Main'));
+    block.appendChild(mainContent);
+    
+    // 創建Copy分頁內容
+    const copyContent = document.createElement('div');
+    copyContent.className = 'tab-content';
+    copyContent.style.display = 'none';
+    copyContent.appendChild(createLinksContainer(data.copyLinks, 'Copy'));
+    block.appendChild(copyContent);
+  }
+  
+  console.log('Link-group-simple block decoration completed with Main:', data.mainLinks.length, 'Copy:', data.copyLinks.length);
 }
